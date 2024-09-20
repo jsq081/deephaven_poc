@@ -1,7 +1,9 @@
 from deephaven import empty_table, time_table, agg
 import random
 import string
-from deephaven import ema_time
+# from deephaven import ema_time
+from deephaven.plot.figure import Figure
+
 #letters_upp = string.ascii_uppercase
 mock_array = ['A','B','C','D','E']
 
@@ -31,7 +33,4 @@ rollup_by_ticker = ticking_table.rollup(
     by=["Ticker"]              # Group by Ticker
 )
 
-#exponential moving average for price
-ema_price = ticking_table.update_by(
-    ops=[ema_time(ts_col="Timestamp", decay_time="PT00:00:05", cols=["EmaPrice=Price"])]
-)
+plot_line_1 = Figure().plot_xy(series_name="Price", t=ticking_table, x="Timestamp", y="Price").show()
